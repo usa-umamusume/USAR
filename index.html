@@ -91,6 +91,45 @@
       padding: 10px;
       color: #888;
     }
+
+    .ranking-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: center;
+    }
+    
+    .ranking-table th,
+    .ranking-table td {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+    
+    .ranking-table th {
+      background-color: #f0f0f0;
+    }
+    
+    /* 1位〜3位の色 */
+    .rank-1 {
+      background-color: #fff4cc; /* 薄い金 */
+      font-weight: bold;
+    }
+    
+    .rank-2 {
+      background-color: #f0f0f0; /* 薄い銀 */
+    }
+    
+    .rank-3 {
+      background-color: #f9e0c7; /* 薄い銅 */
+    }
+
+    /* スマホ対応 */
+    @media (max-width: 600px) {
+      .ranking-table th,
+      .ranking-table td {
+        padding: 6px;
+        font-size: 14px;
+      }
+    }
   </style>
 </head>
 
@@ -103,15 +142,71 @@
 <main>
 
   <!-- ランキング -->
-  <section>
-    <h2>🏆 リアルタイムランキング（仮）</h2>
-    <ul id="ranking-list">
-      <li>1位：オグリキャップ（123pt）</li>
-      <li>2位：スペシャルウィーク（110pt）</li>
-      <li>3位：ゴールドシップ（98pt）</li>
-      <li>4位：テイエムオペラオー（85pt）</li>
-    </ul>
-  </section>
+　<section>
+  　<h2>🏆 リアルタイムランキング</h2>
+　
+　  <table class="ranking-table">
+  　  <thead>
+    　  <tr>
+      　  <th>順位</th>
+        　<th>トレーナー名</th>
+      　  <th>Pt</th>
+     　 </tr>
+   　 </thead>
+    　<tbody>
+      　<tr class="rank-1">
+  　      <td>1</td>
+    　    <td>トレーナーA</td>
+      　  <td>123</td>
+    　  </tr>
+  　    <tr class="rank-2">
+         <td>2</td>
+         <td>トレーナーB</td>
+  　      <td>110</td>
+    　  </tr>
+  　    <tr class="rank-3">
+   　     <td>3</td>
+   　     <td>トレーナーC</td>
+   　     <td>98</td>
+   　   </tr>
+   　   <tr>
+   　     <td>4</td>
+   　     <td>トレーナーD</td>
+   　     <td>85</td>
+   　   </tr>
+  　    <tr>
+    　    <td>5</td>
+     　   <td>トレーナーE</td>
+    　    <td>80</td>
+  　    </tr>
+  　    <tr>
+   　     <td>6</td>
+         <td>トレーナーF</td>
+   　     <td>75</td>
+  　    </tr>
+  　    <tr>
+  　      <td>7</td>
+  　      <td>トレーナーG</td>
+  　      <td>70</td>
+       </tr>
+       <tr>
+    　    <td>8</td>
+    　    <td>トレーナーH</td>
+    　    <td>65</td>
+   　   </tr>
+   　   <tr>
+    　    <td>9</td>
+    　    <td>トレーナーI</td>
+   　     <td>60</td>
+    　  </tr>
+    　  <tr>
+    　    <td>10</td>
+    　    <td>トレーナーJ</td>
+         <td>55</td>
+       </tr>
+ 　   </tbody>
+　  </table>
+　</section>
 
   <!-- リンク -->
   <section>
