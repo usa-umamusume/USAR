@@ -59,19 +59,11 @@ th {
 /* UI */
 .controls {
   margin-bottom: 10px;
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
 }
 
 input {
   padding: 8px;
-  flex: 1;
-}
-
-button {
-  padding: 8px 12px;
-  cursor: pointer;
+  width: 100%;
 }
 
 .back-link {
@@ -99,8 +91,6 @@ button {
 
 <div class="controls">
   <input type="text" id="search" placeholder="名前検索">
-  <button onclick="sortByPoint()">Pt順</button>
-  <button onclick="sortByName()">名前順</button>
 </div>
 
 <table>
@@ -119,16 +109,16 @@ button {
 
 <script>
 let data = [
-  {name:"トレーナーA", pt:123},
-  {name:"トレーナーB", pt:110},
-  {name:"トレーナーC", pt:98},
-  {name:"トレーナーD", pt:85},
-  {name:"トレーナーE", pt:80},
-  {name:"トレーナーF", pt:75},
-  {name:"トレーナーG", pt:70},
-  {name:"トレーナーH", pt:65},
-  {name:"トレーナーI", pt:60},
-  {name:"トレーナーJ", pt:55}
+  {rank:1, name:"トレーナーA", pt:123},
+  {rank:2, name:"トレーナーB", pt:110},
+  {rank:3, name:"トレーナーC", pt:98},
+  {rank:4, name:"トレーナーD", pt:85},
+  {rank:5, name:"トレーナーE", pt:80},
+  {rank:6, name:"トレーナーF", pt:75},
+  {rank:7, name:"トレーナーG", pt:70},
+  {rank:8, name:"トレーナーH", pt:65},
+  {rank:9, name:"トレーナーI", pt:60},
+  {rank:10, name:"トレーナーJ", pt:55}
 ];
 
 let currentData = [...data];
@@ -137,31 +127,25 @@ function render() {
   const tbody = document.getElementById("ranking-body");
   tbody.innerHTML = "";
 
-  currentData.forEach((item, index) => {
+  if (currentData.length === 0) {
+    tbody.innerHTML = "<tr><td colspan='3'>該当なし</td></tr>";
+    return;
+  }
+
+  currentData.forEach((item) => {
     let rankClass = "";
-    if (index === 0) rankClass = "rank-1";
-    if (index === 1) rankClass = "rank-2";
-    if (index === 2) rankClass = "rank-3";
+    if (item.rank === 1) rankClass = "rank-1";
+    if (item.rank === 2) rankClass = "rank-2";
+    if (item.rank === 3) rankClass = "rank-3";
 
     tbody.innerHTML += `
       <tr class="${rankClass}">
-        <td>${index + 1}</td>
+        <td>${item.rank}</td>
         <td>${item.name}</td>
         <td>${item.pt}</td>
       </tr>
     `;
   });
-}
-
-/* ソート */
-function sortByPoint() {
-  currentData.sort((a, b) => b.pt - a.pt);
-  render();
-}
-
-function sortByName() {
-  currentData.sort((a, b) => a.name.localeCompare(b.name));
-  render();
 }
 
 /* 検索 */
