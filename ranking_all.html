@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>参加者全体ランキング</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  font-family: sans-serif;
+  margin: 0;
+  background: #f5f5f5;
+}
+
+header {
+  background: #2c3e50;
+  color: white;
+  padding: 15px;
+  text-align: center;
+}
+
+main {
+  max-width: 900px;
+  margin: auto;
+  padding: 15px;
+}
+
+section {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+/* テーブル */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+th, td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background: #f0f0f0;
+}
+
+/* 順位カラー */
+.rank-1 { background: #fff4cc; font-weight: bold; }
+.rank-2 { background: #f0f0f0; }
+.rank-3 { background: #f9e0c7; }
+
+/* UI */
+.controls {
+  margin-bottom: 10px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+input {
+  padding: 8px;
+  flex: 1;
+}
+
+button {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  参加者全体ランキング
+</header>
+
+<main>
+
+<a href="index.html" class="back-link">← TOPへ戻る</a>
+
+<section>
+
+<h2>🏆 ランキング</h2>
+
+<p id="last-updated">最終更新：2026/04/21 10:00</p>
+
+<div class="controls">
+  <input type="text" id="search" placeholder="名前検索">
+  <button onclick="sortByPoint()">Pt順</button>
+  <button onclick="sortByName()">名前順</button>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>順位</th>
+      <th>トレーナー名</th>
+      <th>Pt</th>
+    </tr>
+  </thead>
+  <tbody id="ranking-body"></tbody>
+</table>
+
+</section>
+</main>
+
+<script>
+let data = [
+  {name:"トレーナーA", pt:123},
+  {name:"トレーナーB", pt:110},
+  {name:"トレーナーC", pt:98},
+  {name:"トレーナーD", pt:85},
+  {name:"トレーナーE", pt:80},
+  {name:"トレーナーF", pt:75},
+  {name:"トレーナーG", pt:70},
+  {name:"トレーナーH", pt:65},
+  {name:"トレーナーI", pt:60},
+  {name:"トレーナーJ", pt:55}
+];
+
+let currentData = [...data];
+
+function render() {
+  const tbody = document.getElementById("ranking-body");
+  tbody.innerHTML = "";
+
+  currentData.forEach((item, index) => {
+    let rankClass = "";
+    if (index === 0) rankClass = "rank-1";
+    if (index === 1) rankClass = "rank-2";
+    if (index === 2) rankClass = "rank-3";
+
+    tbody.innerHTML += `
+      <tr class="${rankClass}">
+        <td>${index + 1}</td>
+        <td>${item.name}</td>
+        <td>${item.pt}</td>
+      </tr>
+    `;
+  });
+}
+
+/* ソート */
+function sortByPoint() {
+  currentData.sort((a, b) => b.pt - a.pt);
+  render();
+}
+
+function sortByName() {
+  currentData.sort((a, b) => a.name.localeCompare(b.name));
+  render();
+}
+
+/* 検索 */
+document.getElementById("search").addEventListener("input", function(e) {
+  const value = e.target.value.toLowerCase();
+
+  currentData = data.filter(d =>
+    d.name.toLowerCase().includes(value)
+  );
+
+  render();
+});
+
+/* 初期表示 */
+render();
+</script>
+
+</body>
+</html>
