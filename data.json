@@ -1,0 +1,7 @@
+[
+  { "trainer_id": "1", "name": "トレーナーA", "pt": 123, "rank": 1 },
+  { "trainer_id": "2", "name": "トレーナーB", "pt": 110, "rank": 2 },
+  { "trainer_id": "3", "name": "トレーナーC", "pt": 98, "rank": 3 },
+  { "trainer_id": "4", "name": "トレーナーD", "pt": 85, "rank": 4 },
+  { "trainer_id": "5", "name": "トレーナーE", "pt": 80, "rank": 5 }
+]
