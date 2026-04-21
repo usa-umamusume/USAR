@@ -111,18 +111,15 @@ input {
 </main>
 
 <script>
-let data = [
-  {rank:1, name:"トレーナーA", pt:123},
-  {rank:2, name:"トレーナーB", pt:110},
-  {rank:3, name:"トレーナーC", pt:98},
-  {rank:4, name:"トレーナーD", pt:85},
-  {rank:5, name:"トレーナーE", pt:80},
-  {rank:6, name:"トレーナーF", pt:75},
-  {rank:7, name:"トレーナーG", pt:70},
-  {rank:8, name:"トレーナーH", pt:65},
-  {rank:9, name:"トレーナーI", pt:60},
-  {rank:10, name:"トレーナーJ", pt:55}
-];
+let data = [];
+let currentData = [];
+
+async function loadData() {
+  const response = await fetch("data.json");
+  data = await response.json();
+  currentData = [...data];
+  render();
+}
 
 let currentData = [...data];
 
@@ -163,7 +160,7 @@ document.getElementById("search").addEventListener("input", function(e) {
 });
 
 /* 初期表示 */
-render();
+loadData();
 </script>
 
 </body>
