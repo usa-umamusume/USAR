@@ -156,57 +156,7 @@
       　  <th>Pt</th>
      　 </tr>
    　 </thead>
-    　<tbody>
-      　<tr class="rank-1">
-  　      <td>1</td>
-    　    <td>トレーナーA</td>
-      　  <td>123</td>
-    　  </tr>
-  　    <tr class="rank-2">
-         <td>2</td>
-         <td>トレーナーB</td>
-  　      <td>110</td>
-    　  </tr>
-  　    <tr class="rank-3">
-   　     <td>3</td>
-   　     <td>トレーナーC</td>
-   　     <td>98</td>
-   　   </tr>
-   　   <tr>
-   　     <td>4</td>
-   　     <td>トレーナーD</td>
-   　     <td>85</td>
-   　   </tr>
-  　    <tr>
-    　    <td>5</td>
-     　   <td>トレーナーE</td>
-    　    <td>80</td>
-  　    </tr>
-  　    <tr>
-   　     <td>6</td>
-         <td>トレーナーF</td>
-   　     <td>75</td>
-  　    </tr>
-  　    <tr>
-  　      <td>7</td>
-  　      <td>トレーナーG</td>
-  　      <td>70</td>
-       </tr>
-       <tr>
-    　    <td>8</td>
-    　    <td>トレーナーH</td>
-    　    <td>65</td>
-   　   </tr>
-   　   <tr>
-    　    <td>9</td>
-    　    <td>トレーナーI</td>
-   　     <td>60</td>
-    　  </tr>
-    　  <tr>
-    　    <td>10</td>
-    　    <td>トレーナーJ</td>
-         <td>55</td>
-       </tr>
+    　<tbody id="ranking-body">
  　   </tbody>
 　  </table>
 　</section>
@@ -243,5 +193,38 @@
   © 2026 対戦コミュニティ
 </footer>
 
+  
+<script>
+let data = [];
+
+async function loadData() {
+  const response = await fetch("data.json");
+  data = await response.json();
+  renderTop3();
+}
+
+function renderTop3() {
+  const tbody = document.getElementById("ranking-body");
+  tbody.innerHTML = "";
+
+  data.slice(0, 3).forEach(item => {
+    let rankClass = "";
+    if (item.rank === 1) rankClass = "rank-1";
+    if (item.rank === 2) rankClass = "rank-2";
+    if (item.rank === 3) rankClass = "rank-3";
+
+    tbody.innerHTML += `
+      <tr class="${rankClass}">
+        <td>${item.rank}</td>
+        <td>${item.name}</td>
+        <td>${item.pt}</td>
+      </tr>
+    `;
+  });
+}
+
+loadData();
+</script>
+  
 </body>
 </html>
