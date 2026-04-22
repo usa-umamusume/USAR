@@ -137,8 +137,8 @@ input {
       <th>Pt</th>
     </tr>
   </thead>
-  <tbody id="ranking-body"></tbody>
-<table class="ranking-table">
+<tbody id="ranking-body"></tbody>
+</table>
 
 </section>
 </main>
@@ -158,6 +158,9 @@ async function loadData() {
     currentData = [...data];
 
     render();
+
+    document.querySelector(".ranking-table").style.display = "table";
+     
   } catch (e) {
     loading.innerHTML = "データ取得に失敗しました";
     return;
@@ -200,8 +203,6 @@ document.getElementById("search").addEventListener("input", function(e) {
   );
 
   render();
-
-　document.querySelector(".ranking-table").style.display = "table";
    
 });
 
