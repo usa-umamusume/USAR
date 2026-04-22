@@ -74,24 +74,25 @@
       color: #888;
     }
 
+/* 獲得Pt側 */
     /* 初期はテーブル非表示（ローディング中のチラ見え防止） */
-    .ranking-table {
+    .ranking-table-pt {
       display: none;
     }
 
-    .ranking-table {
+    .ranking-table-pt {
       width: 100%;
       border-collapse: collapse;
       text-align: center;
     }
     
-    .ranking-table th,
-    .ranking-table td {
+    .ranking-table-pt th,
+    .ranking-table-pt td {
       padding: 10px;
       border-bottom: 1px solid #ddd;
     }
     
-    .ranking-table th {
+    .ranking-table-pt th {
       background-color: #f0f0f0;
     }
     
@@ -99,6 +100,32 @@
     .rank-2 { background-color: #f0f0f0; }
     .rank-3 { background-color: #f9e0c7; }
 
+/* 勝利数側 */
+    /* 初期はテーブル非表示（ローディング中のチラ見え防止） */
+    .ranking-table-win {
+      display: none;
+    }
+
+    .ranking-table-win {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: center;
+    }
+    
+    .ranking-table-win th,
+    .ranking-table-win td {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+    
+    .ranking-table-win th {
+      background-color: #f0f0f0;
+    }
+    
+    .rank-1 { background-color: #fff4cc; font-weight: bold; }
+    .rank-2 { background-color: #f0f0f0; }
+    .rank-3 { background-color: #f9e0c7; }
+    
     /* ローディング */
     #loading {
       text-align: center;
@@ -122,8 +149,14 @@
     }
 
     @media (max-width: 600px) {
-      .ranking-table th,
-      .ranking-table td {
+      .ranking-table-pt th,
+      .ranking-table-pt td {
+        padding: 6px;
+        font-size: 14px;
+
+    @media (max-width: 600px) {
+      .ranking-table-win th,
+      .ranking-table-win td {
         padding: 6px;
         font-size: 14px;
       }
@@ -148,7 +181,7 @@
       <div class="spinner"></div>
     </div>
 
-    <table class="ranking-table">
+    <table class="ranking-table-pt">
       <thead>
         <tr>
           <th>順位</th>
@@ -159,7 +192,21 @@
       <tbody id="ranking-body"></tbody>
     </table>
     <div class="button-group">
-      <a href="ranking_season_pt.html" class="btn">シーズン ランキング　一覧</a>
+      <a href="ranking_season_pt.html" class="btn">【獲得Pt】ランキング一覧</a>
+    </div>
+
+    <table class="ranking-table-win">
+      <thead>
+        <tr>
+          <th>順位</th>
+          <th>トレーナー名</th>
+          <th>勝利数</th>
+        </tr>
+      </thead>
+      <tbody id="ranking-body"></tbody>
+    </table>
+    <div class="button-group">
+      <a href="ranking_season_pt.html" class="btn">【勝利数】ランキング一覧</a>
     </div>
   </section>
 
@@ -196,7 +243,7 @@ async function loadData() {
 
   renderTop3();
 
-  document.querySelector(".ranking-table").style.display = "table";
+  document.querySelector(".").style.display = "table";
 
   loading.style.display = "none";
 }
