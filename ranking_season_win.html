@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>勝利数 ランキング｜USAR（ランクウマッチ）ウマ娘有志対人大会</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+* {
+   box-sizing: border-box;
+}
+body {
+  font-family: sans-serif;
+  margin: 0;
+  background: #f5f5f5;
+}
+
+header {
+  background: #2c3e50;
+  color: white;
+  padding: 15px;
+  text-align: center;
+}
+
+main {
+  max-width: 900px;
+  margin: auto;
+  padding: 15px;
+}
+
+section {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+/* 初期はテーブル非表示（ローディング中のチラ見え防止） */
+.ranking-table {
+  display: none;
+}
+   
+/* テーブル */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+th, td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background: #f0f0f0;
+}
+
+/* 順位カラー */
+.rank-1 { background: #fff4cc; font-weight: bold; }
+.rank-2 { background: #f0f0f0; }
+.rank-3 { background: #f9e0c7; }
+
+/* UI */
+.controls {
+  margin-bottom: 10px;
+}
+
+input {
+  padding: 8px;
+  width: 100%;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+/* ローディング */
+#loading {
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+  color: #666;
+}
+
+.spinner {
+  margin: 10px auto;
+  width: 24px;
+  height: 24px;
+  border: 3px solid #ddd;
+  border-top: 3px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  勝利数 ランキング
+</header>
+
+<main>
+
+<a href="index.html" class="back-link">← TOPへ戻る</a>
+
+<section>
+
+<div class="controls">
+  <input type="text" id="search" placeholder="名前検索">
+</div>
+
+<!-- ローディング -->
+<div id="loading">
+  読み込み中...
+  <div class="spinner"></div>
+</div>
+
+<table class="ranking-table">
+  <thead>
+    <tr>
+      <th>順位</th>
+      <th>トレーナー名</th>
+      <th>勝利数</th>
+    </tr>
+  </thead>
+<tbody id="ranking-body"></tbody>
+</table>
+
+</section>
+</main>
+
+<script>
+let data = [];
+let currentData = [];
+
+async function loadData() {
+  const loading = document.getElementById("loading");
+
+  loading.style.display = "block";
+
+  try {
+    const response = await fetch("https://script.google.com/macros/s/AKfycby-lc56gupPjeylxdKrTYlTcIWSmKNg4UxK3TBcYIB-YFBn5mrdjWzrx86j5euMHycF6w/exec");
+    data = await response.json();
+    currentData = [...data];
+
+    render();
+
+    document.querySelector(".ranking-table").style.display = "table";
+     
+  } catch (e) {
+    loading.innerHTML = "データ取得に失敗しました";
+    return;
+  }
+
+  loading.style.display = "none";
+}
+
+function render() {
+  const tbody = document.getElementById("ranking-body");
+  tbody.innerHTML = "";
+
+  if (currentData.length === 0) {
+    tbody.innerHTML = "<tr><td colspan='3'>該当なし</td></tr>";
+    return;
+  }
+
+  currentData.forEach((item) => {
+    let rankClass = "";
+    if (item.rank === 1) rankClass = "rank-1";
+    if (item.rank === 2) rankClass = "rank-2";
+    if (item.rank === 3) rankClass = "rank-3";
+
+    tbody.innerHTML += `
+      <tr class="${rankClass}">
+        <td>${item.rank}</td>
+        <td>${item.name}</td>
+        <td>${item.win}</td>
+      </tr>
+    `;
+  });
+}
+
+/* 検索 */
+document.getElementById("search").addEventListener("input", function(e) {
+  const value = e.target.value.toLowerCase();
+
+  currentData = data.filter(d =>
+    d.name.toLowerCase().includes(value)
+  );
+
+  render();
+   
+});
+
+/* 初期表示 */
+loadData();
+</script>
+
+</body>
+</html>
