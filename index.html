@@ -198,7 +198,7 @@
 let data = [];
 
 async function loadData() {
-  const response = await fetch("data.json");
+  const response = await fetch("https://script.google.com/macros/s/AKfycbwHu-R247oSbm0S4072FDy6lC5wbqH5V0mlHXlTaxdg8U-9f6RAmqS3hBj5MAEz2xmyTg/exec");
   data = await response.json();
   renderTop3();
 }
