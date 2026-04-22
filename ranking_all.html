@@ -38,6 +38,11 @@ h2 {
   margin-top: 0;
 }
 
+/* 初期はテーブル非表示（ローディング中のチラ見え防止） */
+.ranking-table {
+  display: none;
+}
+   
 /* テーブル */
 table {
   width: 100%;
@@ -124,7 +129,7 @@ input {
   <div class="spinner"></div>
 </div>
 
-<table>
+<table class="ranking-table">
   <thead>
     <tr>
       <th>順位</th>
@@ -133,7 +138,7 @@ input {
     </tr>
   </thead>
   <tbody id="ranking-body"></tbody>
-</table>
+<table class="ranking-table">
 
 </section>
 </main>
@@ -195,6 +200,9 @@ document.getElementById("search").addEventListener("input", function(e) {
   );
 
   render();
+
+　document.querySelector(".ranking-table").style.display = "table";
+   
 });
 
 /* 初期表示 */
