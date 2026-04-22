@@ -74,6 +74,11 @@
       color: #888;
     }
 
+    /* 初期はテーブル非表示（ローディング中のチラ見え防止） */
+    .ranking-table {
+      display: none;
+    }
+
     .ranking-table {
       width: 100%;
       border-collapse: collapse;
@@ -188,6 +193,8 @@ async function loadData() {
   data = await response.json();
 
   renderTop3();
+
+  document.querySelector(".ranking-table").style.display = "table";
 
   loading.style.display = "none";
 }
