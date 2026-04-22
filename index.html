@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>対戦ランキングサイト（仮）</title>
+  <title>（仮）</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
@@ -134,13 +134,13 @@
 <body>
 
 <header>
-  対戦ランキングサイト（β版）
+  （β版）
 </header>
 
 <main>
 
   <section>
-    <h2>🏆 リアルタイムランキング</h2>
+    <h2>🏆 今シーズン TOP3</h2>
 
     <!-- ローディング表示 -->
     <div id="loading">
@@ -158,14 +158,16 @@
       </thead>
       <tbody id="ranking-body"></tbody>
     </table>
+    <div class="button-group">
+      <a href="ranking_all.html" class="btn">トータルランキング</a>
+    </div>
   </section>
 
   <section>
-    <h2>📊 ランキング詳細</h2>
+    <h2>📊 ウマ娘別 詳細ランキング</h2>
     <div class="button-group">
-      <a href="ranking_all.html" class="btn">参加者全体</a>
       <a href="ranking_character.html" class="btn">全ウマ娘名別</a>
-      <a href="ranking_unit.html" class="btn">育成ウマ娘別</a>
+      <a href="ranking_unit.html" class="btn">育成ウマ娘名別</a>
     </div>
   </section>
 
